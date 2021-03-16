@@ -1,0 +1,23 @@
+Import spectral cube of Monoceros R2 (cite Berne + 2009 for publication of data)
+
+make simple visualization with spectral aperture overplotted on image of Mon R2
+
+stitch spectral orders, make final cube
+
+derive continuum components
+
+derive fluxes and uncertainties
+
+output spectral maps
+
+output correlation plots
+
+output heatmap of correlation coefficients
+
+machine learning to derive correlation relationships?
+
+output line projections
+
+histogram visualizations?
+
+compare with FIR observations?
