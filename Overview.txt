@@ -9,7 +9,9 @@ what they can tell us about this region.
 
 We begin first looking at a WISE 12 um image of Monoceros R2 to obtain a
 simple visual interpretation of this region that can later be compared with
-other data. This fits file may be downloaded from the following url: https://drive.google.com/file/d/1Pf8j4AheWH5oPvaaoFYoBYp52ap6EPi_/view
+other data. This fits file may be downloaded from the following url:
+
+https://drive.google.com/file/d/1Pf8j4AheWH5oPvaaoFYoBYp52ap6EPi_/view
 
 *Most of this data has been published in scientific journals by various
 authors. I will include links to any relevant articles I come across during
