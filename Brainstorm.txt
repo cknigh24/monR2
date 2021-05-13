@@ -1,0 +1,44 @@
+#################################################################
+#     Brainstorm some next steps to take with this project      #
+#################################################################
+
+1) IRS data
+-Want to define the aperture of the IRS data cube such than we can match the wcs
+ in the above image
+-Remember that there are 2 spectral orders to consider here, so the IRS aperture
+ defined must cover both
+-try outputting some spectral window snapshots to see if we can find any underlying
+ structure to focus our studies
+-clean the spectral data
+
+2) WISE data
+- process W1 and W2 in same way as W3
+- compare different bands across image
+- compare wise colors (i.e [W1 - W2] ..)
+- ML model to predict values for bad pixels in one image
+- resample to FIR data
+
+3) PACS/SPIRE data
+- SED fitting
+- Determine maps for G0, T_dust, optical depth
+- Correlations between FIR bands, colors
+
+________________________________________________________________________________
+
+Data analysis methods to consider:
+
+1) correlation plots
+
+2) radial profiles
+
+3) spectral profile comparison (Check out astropy model fitting, astrostats)
+
+4) multiwavength observations: FIR, NIR, vis, etc.
+
+5) ML techniques (PCA, k-means, regression)
+
+6) PDR toolbox, environmental diagnostics
+
+7) Stellar modelling?
+
+8) PAHdB. PAHTAT, PAHFIT
