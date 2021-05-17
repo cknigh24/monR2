@@ -1,1 +1,24 @@
+##                     Project Overview                         
 
+
+In this project, we will look at a set of astronomical data of the HII region,
+Monoceros R2. Using various techniques to analyze this data, we will draw
+conclusions about how the various data objects are related to each other and
+what they can tell us about this region.
+
+We begin first looking at a WISE 12 um image of Monoceros R2 to obtain a
+simple visual interpretation of this region that can later be compared with
+other data. This fits file may be downloaded from the following url:
+
+https://drive.google.com/drive/folders/1iSOacJb7SwURVUtAkFicCFOtRseJMuOP?usp=sharing
+
+*Most of this data has been published in scientific journals by various
+authors. I will include links to any relevant articles I come across during
+this study but this will by no means be an exhaustive list. I invite anyone
+who has the interest to read these papers to gain a deeper understanding
+of Monoceros R2 and the study of the interstellar medium in general*
+
+
+- In future versions, I will include a detailed README describing the structure
+of this repository and the included files. This file will also be updated
+regularly and will be eventually formatted much more cleanly using Latex.
