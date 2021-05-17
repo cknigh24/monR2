@@ -1,37 +1,31 @@
-## Welcome to GitHub Pages
+##                     Project Overview                         
 
-You can use the [editor on GitHub](https://github.com/cknigh24/cknigh24.github.io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+In this project, we will look at a set of astronomical data of the HII region,
+**Monoceros R2**. Using various techniques to analyze this data, we will draw
+conclusions about how the various data objects are related to each other and
+what they can tell us about this region.  
 
-### Markdown
+1. We begin first looking at a **WISE 12 um** image of Monoceros R2 to obtain a
+   simple visual interpretation of this region that can later be compared with
+   other data in [Monoceros R2 Introduction Notebook](https://github.com/cknigh24/monR2/blob/main/MonR2_Intro.ipynb). 
+   The fits file required to run cells this notebook may be downloaded from the following url for users 
+   who are so inclined:
+   
+   https://drive.google.com/drive/folders/1iSOacJb7SwURVUtAkFicCFOtRseJMuOP?usp=sharing
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+2. Generalized Python modules based on this introductory notebook will be designed and
+   applied to other Monoceros R2 image products for future analysis. The quality of
+   these modules can be further tested on astronomical images of other sources. 
 
-```markdown
-Syntax highlighted code block
+3. Spectroscopic data reduction and analysis of a Spitzer IRS data cube centered
+   on Monoceros R2 
 
-# Header 1
-## Header 2
-### Header 3
+*Most of this data has been published in scientific journals by various
+authors. I will include links to any relevant articles I come across during
+this study but this will by no means be an exhaustive list. I invite anyone
+who has the interest to read these papers to gain a deeper understanding
+of Monoceros R2 and the study of the interstellar medium in general*
 
-- Bulleted
-- List
+#### Check back for regular updates
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/cknigh24/cknigh24.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
