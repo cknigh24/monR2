@@ -71,7 +71,6 @@ def make_hist(image, pcent, units, plotpath, nametag, save=False):
     plt.ylabel('Counts')
     plt.grid(color='tab:grey')
     plt.show()
-    print("Figure 1: Histogram \n")
     if save == True:
         fig1.savefig(plotpath + nametag + "_hist.png", dpi=300, bbox_inches='tight') # add more file output options
         print("Saving histogram titled: '" + plotpath + nametag + "_hist.png'" ) 
@@ -107,7 +106,6 @@ def make_cumu_hist(image, pcent, units, plotpath, nametag, save=False):
     plt.ylabel('Counts')
     plt.grid(color='tab:grey')
     plt.show()
-    print("Figure 2: Cumulative Histogram \n")
     if save == True:
         fig2.savefig(plotpath + nametag + "_cumu_hist.png", dpi=300, bbox_inches='tight') # add more file output options
         print("Saving Cumulative histogram titled: '" + plotpath + nametag + "_cumu_hist.png'" ) 
@@ -116,10 +114,14 @@ def make_cumu_hist(image, pcent, units, plotpath, nametag, save=False):
 
 # default code to plot a 2d image
 
+
+
+
 def make_image_plot(image, figx, figy, subwcs, 
                     tickspacing, scaling, cmap, pcent, units,
                     plotpath, nametag, fontsize, hdu,
-                    contourname1, contour_levels1, contourname2, contour_levels2, 
+                    contourname1 = None, contour_levels1 = None,
+                    contourname2= None, contour_levels2 =None, 
                     coordx = [], coordy=[], grid =False, bad_pix_mark = False, 
                     wcs_axes = False, rot_wcs = False, save=False):
     """
@@ -193,88 +195,85 @@ def make_image_plot(image, figx, figy, subwcs,
         ra.set_ticklabel(exclude_overlapping=True, size = 8)
         dec.set_ticklabel(exclude_overlapping=True, size = 8)
         
-        if scaling == "sqrt":
-            norm = colors.PowerNorm(gamma=0.5,  vmax= pcent[1], vmin =pcent[0])
-            im=ax.imshow(image, cmap=cmap,origin='lower',norm=norm) 
-        elif scaling == "log":
-            norm = colors.LogNorm(vmax= pcent[1], vmin =pcent[0])
-            im=ax.imshow(image, cmap=cmap,origin='lower',norm=norm)
-        elif scaling == "linear":
-            norm = None
-            im=ax.imshow(image, cmap=cmap,origin='lower',
-                         vmax= pcent[1], vmin =pcent[0])
+    if scaling == "sqrt":
+        norm = colors.PowerNorm(gamma=0.5,  vmax= pcent[1], vmin =pcent[0])
+        im=ax.imshow(image, cmap=cmap,origin='lower',norm=norm) 
+    elif scaling == "log":
+        norm = colors.LogNorm(vmax= pcent[1], vmin =pcent[0])
+        im=ax.imshow(image, cmap=cmap,origin='lower',norm=norm)
+    elif scaling == "linear":
+        norm = None
+        im=ax.imshow(image, cmap=cmap,origin='lower',
+                     vmax= pcent[1], vmin =pcent[0])
               
              
-        im_ratio = image.shape[0]/image.shape[1] 
-       
-        v1 = np.floor(np.log10(np.nanmax(image)))
-             
-            
-        if scaling != 'log':
-            cbar=fig3.colorbar(im, pad=0.02,fraction=0.046*im_ratio,
-                            format=OOMFormatter(v1, mathText=False))
-        if scaling == 'log':
-         cbar=fig3.colorbar(im, pad=0.02,fraction=0.046*im_ratio)
-             
-        cbar.ax.tick_params(length =8, width =2,direction ='out',which = 'major')   
+    im_ratio = image.shape[0]/image.shape[1]        
         
-        # read in fits file for contours if desired (must be same size as image file)
-        if contourname1 != None:
-           header_data_unit_list_c1 = fits.open(contourname1)
-           contours1 = header_data_unit_list_c1[hdu].data
-           header_c1 = header_data_unit_list_c1[hdu].header
-           if contour_levels1 == None:
-               contour_levels1 = [0.25*i*np.nanmax(contours1) for i in range(1,5)]
-               
-        if contourname2 != None:
-           header_data_unit_list_c2 = fits.open(contourname2)
-           contours2 = header_data_unit_list_c2[hdu].data
-           header_c2 = header_data_unit_list_c2[hdu].header
-           if contour_levels2 == None:
-               contour_levels2 = [0.25*i*np.nanmax(contours2) for i in range(1,5)] 
+    if scaling != 'log':
+        v1 = np.floor(np.log10(np.nanmax(image)))
+        cbar=fig3.colorbar(im, pad=0.02,fraction=0.046*im_ratio,
+                        format=OOMFormatter(v1, mathText=False))
+    if scaling == 'log':
+     cbar=fig3.colorbar(im, pad=0.02,fraction=0.046*im_ratio)
          
-        if wcs_axes != True:
-            ax.set_autoscale_on(False)
-            if contourname1 != None:
-                ax.contour(contours1, levels = contour_levels1, colors=('green'),
-                       linestyles=('solid'))
-                if contourname2 != None:
-                    ax.contour(contours2, levels = contour_levels2, colors=('cyan'),
-                           linestyles=('solid'))
+    cbar.ax.tick_params(length =8, width =2,direction ='out',which = 'major')   
+    
+    # read in fits file for contours if desired (must be same size as image file)
+    if contourname1 != None:
+       header_data_unit_list_c1 = fits.open(contourname1)
+       contours1 = header_data_unit_list_c1[hdu].data
+       header_c1 = header_data_unit_list_c1[hdu].header
+       if contour_levels1 == None:
+           contour_levels1 = [0.25*i*np.nanmax(contours1) for i in range(1,5)]
            
-                
-                 
-        if wcs_axes == True:    
-            ax.set_autoscale_on(False)
-            if contourname1 != None:
-                ax.contour(contours1, levels = contour_levels1, colors=('green'),
-                       linestyles=('solid'),transform=ax.get_transform(WCS(header_c1)))
-               
+    if contourname2 != None:
+       header_data_unit_list_c2 = fits.open(contourname2)
+       contours2 = header_data_unit_list_c2[hdu].data
+       header_c2 = header_data_unit_list_c2[hdu].header
+       if contour_levels2 == None:
+           contour_levels2 = [0.25*i*np.nanmax(contours2) for i in range(1,5)] 
+     
+    if wcs_axes != True:
+        ax.set_autoscale_on(False)
+        if contourname1 != None:
+            ax.contour(contours1, levels = contour_levels1, colors=('green'),
+                   linestyles=('solid'))
+        if contourname2 != None:
+            ax.contour(contours2, levels = contour_levels2, colors=('cyan'),
+                   linestyles=('solid'))
+       
+            
+             
+    if wcs_axes == True:    
+        ax.set_autoscale_on(False)
+        if contourname1 != None:
+            ax.contour(contours1, levels = contour_levels1, colors=('green'),
+                   linestyles=('solid'),transform=ax.get_transform(WCS(header_c1)))
+           
         if contourname2 != None:
             ax.contour(contours2, levels = contour_levels2, colors=('cyan'),
                    linestyles=('solid'),transform=ax.get_transform(WCS(header_c2)))
-               
-        # Overplot markers for bad pixels
-        if bad_pix_mark == True:
-            from matplotlib.patches import Rectangle
-            for i in range(0, len(coordx)):
-                r = Rectangle((coordx[i], coordy[i]), 1., 1., edgecolor='red', facecolor='lightgrey')
-                ax.add_patch(r)
-            
-            
-             
-        if units != None:
-           cbar.set_label(units)
-             
-        if grid == True:
-            ax.grid(color='black', ls='dotted', lw = 2)
-        plt.show()
-             
-        print("Figure 3: Image Display \n")
-        if save == True:
-            fig3.tight_layout()
-            fig3.savefig(plotpath + nametag + "_im.png", dpi=300, bbox_inches='tight')
-            print("Saving image titled: '" + plotpath + nametag + "_im.png'"  )
+           
+    # Overplot markers for bad pixels
+    if bad_pix_mark == True:
+        from matplotlib.patches import Rectangle
+        for i in range(0, len(coordx)):
+            r = Rectangle((coordx[i], coordy[i]), 1., 1., edgecolor='red', facecolor='lightgrey')
+            ax.add_patch(r)
+        
+        
+         
+    if units != None:
+       cbar.set_label(units)
+         
+    if grid == True:
+        ax.grid(color='black', ls='dotted', lw = 2)
+    plt.show()
+         
+    if save == True:
+        fig3.tight_layout()
+        fig3.savefig(plotpath + nametag + "_im.png", dpi=300, bbox_inches='tight')
+        print("Saving image titled: '" + plotpath + nametag + "_im.png'"  )
 
 #-----------------------------------------------------------------------------
 
@@ -335,7 +334,7 @@ def fits_viz(filename,errorname= None, a1 = 0, b1 = 0, a2= 0, b2= 0,
             contourname2 = None , contour_levels2=None,
             coordx = [], coordy=[], grid = False, bad_pix_mark = False,  
             wcs_axes = False,rot_wcs = False, hist_display = False, 
-            cumhist_display = False, im_display = True, show_stats = True, 
+            cumhist_display = False, im_display = True, show_stats = False, 
             save = False, save_fits = False, print_hdr = False, 
             extract_units = False):
     """
@@ -427,7 +426,8 @@ def fits_viz(filename,errorname= None, a1 = 0, b1 = 0, a2= 0, b2= 0,
     if (a2 == 0 or b2 == 0):
         a2 = header["NAXIS1"]
         b2 = header["NAXIS2"]
-        print([a1,a2,b1,b2])
+        image = image[b1:b2,a1:a2]
+    else:
         image = image[b1:b2,a1:a2]
       
     
@@ -486,29 +486,26 @@ def fits_viz(filename,errorname= None, a1 = 0, b1 = 0, a2= 0, b2= 0,
     if cumhist_display == True:      
        make_cumu_hist(image, pcent, units,plotpath,nametag, save)  
        
-    # Apply WCS to show sky coordinates on image axes?
-    if wcs_axes == True or save == True: # 
-        im_wcs = WCS(header)
-        print(im_wcs)
-        print("\n=================================================================\n")
-        
-        #Slice wcs to match latest subimage
-        from astropy.wcs.wcsapi import SlicedLowLevelWCS
-        slices=[slice(a1,a2), slice(b1,b2)]
-        subwcs = SlicedLowLevelWCS(im_wcs,slices=slices )
-        
-        #plot image of fits array 
-        
-        
-        # Can define different colormapping options, ranges, and colortables from function call 
-        if im_display == True:
-           make_image_plot(image, figx, figy, subwcs, 
-                               tickspacing, scaling, cmap, pcent, units,
-                               plotpath, nametag, fontsize, hdu,
-                               contourname1, contour_levels1, contourname2, contour_levels2, 
-                               coordx, coordy, grid, bad_pix_mark, 
-                               wcs_axes, rot_wcs, save)
+    # Get WCS information and update if subimage is desired
+    im_wcs = WCS(header)    
+    #Slice wcs to match latest subimage
+    from astropy.wcs.wcsapi import SlicedLowLevelWCS
+    slices=[slice(a1,a2), slice(b1,b2)]
+    subwcs = SlicedLowLevelWCS(im_wcs,slices=slices )
 
-        # Output subimage fits file
-        if save_fits == True:
-            output_to_fits(image, header, subwcs, units, filename, fitspath, nametag)
+        
+    #plot image of fits array 
+        
+        
+    # Can define different colormapping options, ranges, and colortables from function call 
+    if im_display == True:
+       make_image_plot(image, figx, figy, subwcs, 
+                           tickspacing, scaling, cmap, pcent, units,
+                           plotpath, nametag, fontsize, hdu,
+                           contourname1, contour_levels1, contourname2, contour_levels2, 
+                           coordx, coordy, grid, bad_pix_mark, 
+                           wcs_axes, rot_wcs, save)
+
+    # Output subimage fits file
+    if save_fits == True:
+        output_to_fits(image, header, subwcs, units, filename, fitspath, nametag)
